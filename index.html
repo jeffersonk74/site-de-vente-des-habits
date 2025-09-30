@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StyleHub - Boutique de Vêtements</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <h1 class="text-2xl font-bold text-indigo-600">StyleHub</h1>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="nav-link">Accueil</a>
+                    <a href="#" class="nav-link">Hommes</a>
+                    <a href="#" class="nav-link">Femmes</a>
+                    <a href="#" class="nav-link">Accessoires</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Recherche -->
+                    <div class="relative">
+                        <input id="search-input" type="text" placeholder="Rechercher..."
+                          class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        <svg class="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+
+                    <!-- Panier -->
+                    <button onclick="toggleCart()" class="relative p-2 text-gray-700 hover:text-indigo-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 
+                                   01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"/>
+                        </svg>
+                        <span id="cart-count" class="badge">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20 text-center">
+        <h2 class="text-4xl md:text-6xl font-bold mb-6">Collection Automne 2024</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+          Découvrez les dernières tendances mode avec des styles uniques et des prix imbattables
+        </p>
+        <button class="btn-primary">Découvrir la Collection</button>
+    </section>
+
+    <!-- Filtres -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-wrap gap-4 items-center justify-between">
+        <div class="flex flex-wrap gap-4">
+            <select id="filter-category" class="select-filter">
+                <option value="all">Toutes les catégories</option>
+                <option value="T-shirts">T-shirts</option>
+                <option value="Pantalons">Pantalons</option>
+                <option value="Robes">Robes</option>
+                <option value="Vestes">Vestes</option>
+            </select>
+            <select id="filter-size" class="select-filter">
+                <option value="all">Toutes les tailles</option>
+                <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option>
+            </select>
+            <select id="filter-price" class="select-filter">
+                <option value="all">Prix: Tous</option>
+                <option value="30">Moins de 30€</option>
+                <option value="30-60">30€ - 60€</option>
+                <option value="60-100">60€ - 100€</option>
+                <option value="100">Plus de 100€</option>
+            </select>
+        </div>
+        <div class="flex items-center space-x-2">
+            <span class="text-gray-600">Trier par:</span>
+            <select id="sort-by" class="select-filter">
+                <option value="new">Nouveautés</option>
+                <option value="asc">Prix croissant</option>
+                <option value="desc">Prix décroissant</option>
+                <option value="pop">Popularité</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- Produits -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+    </section>
+
+    <!-- Panier -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="p-6 border-b flex justify-between items-center">
+            <h3 class="text-xl font-semibold">Panier</h3>
+            <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+                ✖
+            </button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 text-center text-gray-500">
+            Votre panier est vide
+        </div>
+        <div id="cart-footer" class="border-t p-6 bg-gray-50">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg font-semibold">Total:</span>
+                <span id="cart-total" class="text-xl font-bold text-indigo-600">0,00 €</span>
+            </div>
+            <button class="btn-primary w-full">Procéder au paiement</button>
+        </div>
+    </div>
+    <div id="cart-overlay" class="cart-overlay hidden" onclick="toggleCart()"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
